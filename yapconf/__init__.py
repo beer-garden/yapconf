@@ -34,13 +34,10 @@ try:
     # ruamel.yaml is installed.
     import ruamel.yaml as yaml
 
-    # ruamel.yaml depricated support for safe_load in 0.17.0
-    if packaging.version.parse(yaml.__version__) < packaging.version.parse("0.18.0"):
-        yaml.load = yaml.safe_load
-    else:
-        from ruamel.yaml import YAML
+    from ruamel.yaml import YAML
 
-        yaml = YAML(typ="safe", pure=True)
+    yaml = YAML(typ="safe", pure=True)
+        
 
 
 except ImportError:
@@ -183,7 +180,13 @@ def _dump(data, stream, file_type, **kwargs):
         else:
             stream.write(six.u(dumped))
     elif str(file_type).lower() == "yaml":
-        yaml.safe_dump(data, stream, **kwargs)
+
+        # Depending on the yaml module loaded, need to handle arguments differently
+        if type(yaml).__name__== "YAML":
+            yaml.default_flow_style = kwargs.get("default_flow_style", False)
+            yaml.dump(data, stream)
+        else:
+            yaml.dump(data, stream, **kwargs)
     else:
         raise NotImplementedError(
             "Someone forgot to implement dump for file " "type: %s" % file_type
@@ -225,7 +228,11 @@ def load_file(
         if str(file_type).lower() == "json":
             data = json.load(conf_file, **load_kwargs)
         elif str(file_type).lower() == "yaml":
-            data = yaml.load(conf_file.read())
+            # Depending on the yaml module loaded, need to handle arguments differently
+            if type(yaml).__name__== "YAML":
+                data = yaml.load(conf_file.read())
+            else:
+                data = yaml.safe_load(conf_file.read())
         else:
             raise NotImplementedError(
                 "Someone forgot to implement how to load a %s file_type." % file_type

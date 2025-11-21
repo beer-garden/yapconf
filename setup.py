@@ -35,10 +35,10 @@ extras = {
         "pytest-cov",
         "pytest-runner",
         "python-etcd",
-        "ruamel.yaml",
+        "ruamel.yaml>=0.15",
         "tox",
     ],
-    "yaml": ["ruamel.yaml"],
+    "yaml": ["ruamel.yaml>=0.15"],
 }
 
 setup(
