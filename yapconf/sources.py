@@ -489,9 +489,11 @@ class KubernetesConfigSource(ConfigSource):
 
         nested_config = result.data[self.key]
         if self.config_type == "json":
-            return json.loads(nested_config,)
+            return json.loads(
+                nested_config,
+            )
         elif self.config_type == "yaml":
-            if type(yapconf.yaml).__name__== "YAML":
+            if type(yapconf.yaml).__name__ == "YAML":
                 return yapconf.yaml.load(nested_config)
             else:
                 return yapconf.yaml.safe_load(nested_config)

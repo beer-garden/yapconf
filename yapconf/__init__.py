@@ -33,11 +33,9 @@ try:
     # we want our code to be the same whether or not PyYaml or
     # ruamel.yaml is installed.
     import ruamel.yaml as yaml
-
     from ruamel.yaml import YAML
 
     yaml = YAML(typ="safe", pure=True)
-        
 
 
 except ImportError:
@@ -182,7 +180,7 @@ def _dump(data, stream, file_type, **kwargs):
     elif str(file_type).lower() == "yaml":
 
         # Depending on the yaml module loaded, need to handle arguments differently
-        if type(yaml).__name__== "YAML":
+        if type(yaml).__name__ == "YAML":
             yaml.default_flow_style = kwargs.get("default_flow_style", False)
             yaml.dump(data, stream)
         else:
@@ -229,7 +227,7 @@ def load_file(
             data = json.load(conf_file, **load_kwargs)
         elif str(file_type).lower() == "yaml":
             # Depending on the yaml module loaded, need to handle arguments differently
-            if type(yaml).__name__== "YAML":
+            if type(yaml).__name__ == "YAML":
                 data = yaml.load(conf_file.read())
             else:
                 data = yaml.safe_load(conf_file.read())
