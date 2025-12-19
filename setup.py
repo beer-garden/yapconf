@@ -31,7 +31,7 @@ extras = {
         "kubernetes",
         "mock",
         "pytest",
-        "pytest-lazy-fixture",
+        "pytest-lazy-fixtures",
         "pytest-cov",
         "pytest-runner",
         "python-etcd",
