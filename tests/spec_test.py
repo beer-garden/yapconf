@@ -7,9 +7,10 @@ import time
 from argparse import ArgumentParser
 
 import pytest
-import yaml
+import yaml as legacy_yaml
 from mock import Mock, mock_open, patch
 from pytest_lazy_fixtures import lf
+from ruamel import yaml
 
 import yapconf
 from yapconf.exceptions import (YapconfItemNotFound, YapconfLoadError,
@@ -593,7 +594,7 @@ def test_load_environment(basic_spec):
 @pytest.mark.usefixtures('simple_spec')
 @pytest.mark.parametrize('key,config_type,formatter', [
     (None, None, None),
-    ('file.yaml', 'yaml', yaml.dump),
+    ('file.yaml', 'yaml', legacy_yaml.dump),
     ('file.json', 'json', json.dumps),
 ])
 def test_load_kubernetes(simple_spec, key, config_type, formatter):
