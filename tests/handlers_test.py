@@ -7,16 +7,14 @@ from yapconf.handlers import ConfigChangeHandler, FileHandler
 
 
 def test_handle_config_change(simple_spec):
-    current_config = {'my_string': 'foo'}
-    new_config = {'my_string': 'bar'}
+    current_config = {"my_string": "foo"}
+    new_config = {"my_string": "bar"}
     user_handler = Mock()
     item_handler = Mock()
 
-    handler = ConfigChangeHandler(
-        current_config, simple_spec, user_handler
-    )
+    handler = ConfigChangeHandler(current_config, simple_spec, user_handler)
 
-    item = simple_spec.find_item('my_string')
+    item = simple_spec.find_item("my_string")
     item.watch_target = item_handler
 
     handler.handle_config_change(current_config)
@@ -28,16 +26,14 @@ def test_handle_config_change(simple_spec):
 
 
 def test_handle_config_change_too_many_items(simple_spec):
-    current_config = {'my_string': 'foo'}
-    new_config = {'NOT_IN_SPEC': 'bar'}
+    current_config = {"my_string": "foo"}
+    new_config = {"NOT_IN_SPEC": "bar"}
     user_handler = Mock()
     item_handler = Mock()
 
-    handler = ConfigChangeHandler(
-        current_config, simple_spec, user_handler
-    )
+    handler = ConfigChangeHandler(current_config, simple_spec, user_handler)
 
-    item = simple_spec.find_item('my_string')
+    item = simple_spec.find_item("my_string")
     item.watch_target = item_handler
 
     handler.handle_config_change(new_config)
@@ -47,15 +43,15 @@ def test_handle_config_change_too_many_items(simple_spec):
 
 def test_file_handler():
     custom_handler = Mock()
-    handler = FileHandler('filename', custom_handler)
+    handler = FileHandler("filename", custom_handler)
 
-    with patch('yapconf.load_file') as mock_load:
+    with patch("yapconf.load_file") as mock_load:
         mock_load.return_value = "new_config"
         handler.on_modified(None)
-        custom_handler.handle_config_change.assert_called_with('new_config')
+        custom_handler.handle_config_change.assert_called_with("new_config")
 
 
 def test_file_handler_on_deleted():
-    handler = FileHandler('filename', Mock())
+    handler = FileHandler("filename", Mock())
     with pytest.raises(YapconfSourceError):
         handler.on_deleted(None)

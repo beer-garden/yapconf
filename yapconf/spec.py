@@ -4,16 +4,12 @@ import os
 import sys
 
 import six
+from box import Box
 
 import yapconf
-from box import Box
 from yapconf.docs import generate_markdown_doc
-from yapconf.exceptions import (
-    YapconfItemNotFound,
-    YapconfLoadError,
-    YapconfSourceError,
-    YapconfSpecError,
-)
+from yapconf.exceptions import (YapconfItemNotFound, YapconfLoadError,
+                                YapconfSourceError, YapconfSpecError)
 from yapconf.handlers import ConfigChangeHandler
 from yapconf.items import YapconfDictItem, YapconfListItem, from_specification
 from yapconf.sources import get_source
@@ -79,7 +75,9 @@ class YapconfSpec(object):
     def _load_specification(self, specification):
         if isinstance(specification, six.string_types):
             specification = yapconf.load_file(
-                specification, file_type=self._file_type, klazz=YapconfSpecError,
+                specification,
+                file_type=self._file_type,
+                klazz=YapconfSpecError,
             )
 
         if not isinstance(specification, dict):
@@ -534,7 +532,10 @@ class YapconfSpec(object):
         # We manually generate defaults here so that it is easy to find out
         # if there are defaults for fallbacks that should be applied.
         overrides.append(
-            ("__defaults__", yapconf.flatten(self.defaults, separator=self._separator),)
+            (
+                "__defaults__",
+                yapconf.flatten(self.defaults, separator=self._separator),
+            )
         )
         return overrides
 

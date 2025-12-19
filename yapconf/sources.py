@@ -248,8 +248,10 @@ class JsonConfigSource(ConfigSource):
         self._load_kwargs = kwargs
 
         if "encoding" in self._load_kwargs and not yapconf.json_encode_support:
-            warnings.warn("encoding passed to json source config but 3.9 "
-                          "dropped support for encoding. This will be ignored.")
+            warnings.warn(
+                "encoding passed to json source config but 3.9 "
+                "dropped support for encoding. This will be ignored."
+            )
             del self._load_kwargs["encoding"]
 
         if "encoding" not in self._load_kwargs and yapconf.json_encode_support:
@@ -386,7 +388,11 @@ class EtcdConfigSource(ConfigSource):
             raise YapconfSourceError(
                 "Invalid source (%s). Client must be supplied and must be of "
                 "type %s. Got type: %s"
-                % (self.label, type(yapconf.etcd_client.Client), type(self.client),)
+                % (
+                    self.label,
+                    type(yapconf.etcd_client.Client),
+                    type(self.client),
+                )
             )
 
     def get_data(self):

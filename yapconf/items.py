@@ -9,13 +9,9 @@ import six
 
 import yapconf
 from yapconf.actions import AppendBoolean, AppendReplace, MergeAction
-from yapconf.exceptions import (
-    YapconfDictItemError,
-    YapconfItemError,
-    YapconfItemNotFound,
-    YapconfListItemError,
-    YapconfValueError,
-)
+from yapconf.exceptions import (YapconfDictItemError, YapconfItemError,
+                                YapconfItemNotFound, YapconfListItemError,
+                                YapconfValueError)
 
 if sys.version_info > (3,):
     long = int
@@ -365,7 +361,8 @@ class YapconfItem(object):
 
         if override is None and self.default is None and self.required:
             raise YapconfItemNotFound(
-                "Could not find config value for {0}".format(self.fq_name), self,
+                "Could not find config value for {0}".format(self.fq_name),
+                self,
             )
 
         if override is None:
@@ -459,7 +456,8 @@ class YapconfItem(object):
 
         if self.format_env:
             return yapconf.change_case(
-                self.env_prefix + "_".join(self.fq_name.split(self.separator)), "_",
+                self.env_prefix + "_".join(self.fq_name.split(self.separator)),
+                "_",
             ).upper()
         else:
             return "".join(self.fq_name.split(self.separator))
