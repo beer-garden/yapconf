@@ -1,0 +1,60 @@
+name: Pull Request
+
+on: pull_request
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Linting:
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: ./src/app
+
+    strategy:
+      matrix:
+        python-version: ["3.11.11"]
+        os: ["ubuntu-latest"]
+
+    name: Linting OS ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Make Deps
+        run: pip install -r requirements.txt
+
+      - name: Run Linting
+        run: make lint
+
+
+  PyTest:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11.11","3.12","3.13", "3.14"]
+        os: ["ubuntu-latest"]
+
+    name: PyTests OS ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Make Deps
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        run: make test
