@@ -7,9 +7,9 @@ import time
 from argparse import ArgumentParser
 
 import pytest
+import yaml
 from mock import Mock, mock_open, patch
 from pytest_lazy_fixtures import lf
-from ruamel import yaml
 
 import yapconf
 from yapconf.exceptions import (YapconfItemNotFound, YapconfLoadError,

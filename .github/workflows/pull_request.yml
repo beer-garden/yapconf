@@ -52,8 +52,5 @@ jobs:
       - name: Make Deps
         run: pip install -r requirements.txt
 
-      - name: Install ruamel.yaml
-        run: pip install ruamel.yaml>=0.15
-
       - name: Run Tests
         run: make test
