@@ -2,12 +2,15 @@
 History
 =======
 
-0.4.0 ()
+0.5.0 ()
 ------------------
-* Added support for `ruamel.yaml>0.18`
 * Removed Python 2 support, min version tested is Python 3.8
 * Removed Six dependency
 * Upgraded Python-Box 
+
+0.4.0 (2024-11-12)
+------------------
+* Added support for `ruamel.yaml>0.18`
 
 0.3.7 (2019-12-02)
 ------------------
