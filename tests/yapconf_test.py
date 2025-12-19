@@ -4,7 +4,7 @@ import os
 import pytest
 from box import Box
 from mock import patch
-from pytest_lazy_fixtures import lazy_fixture
+from pytest_lazy_fixtures import lf
 
 import yapconf
 
@@ -73,22 +73,22 @@ def test_convert_to_kebab(orig, expected):
     (
         'ascii.yaml',
         'yaml',
-        lazy_fixture('ascii_data')
+        lf('ascii_data')
     ),
     (
         'unicode.yaml',
         'yaml',
-        lazy_fixture('unicode_data')
+        lf('unicode_data')
     ),
     (
         'ascii.json',
         'json',
-        lazy_fixture('ascii_data')
+        lf('ascii_data')
     ),
     (
         'unicode.json',
         'json',
-        lazy_fixture('unicode_data')
+        lf('unicode_data')
     ),
 ])
 def test_load_file(filename, file_type, expected):
@@ -113,19 +113,19 @@ def test_load_file_error(filename, file_type):
 
 @pytest.mark.parametrize('data,file_type', [
     (
-        lazy_fixture('ascii_data'),
+        lf('ascii_data'),
         'yaml'
     ),
     (
-        lazy_fixture('unicode_data'),
+        lf('unicode_data'),
         'yaml'
     ),
     (
-        lazy_fixture('unicode_data'),
+        lf('unicode_data'),
         'json'
     ),
     (
-        lazy_fixture('ascii_data'),
+        lf('ascii_data'),
         'json'
     )
 ])

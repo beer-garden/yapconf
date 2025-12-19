@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 
 import pytest
 from mock import Mock, mock_open, patch
-from pytest_lazy_fixtures import lazy_fixture
+from pytest_lazy_fixtures import lf
 from ruamel import yaml
 
 import yapconf
@@ -437,14 +437,14 @@ def test_load_config_real_world(real_world_spec):
     'filename,expected,always_update,update_defaults,output_file_type', [
         (
             'default_current_config.yaml',
-            lazy_fixture('default_current_config'),
+            lf('default_current_config'),
             False,
             True,
             'yaml',
         ),
         (
             'default_previous_config.yaml',
-            lazy_fixture('default_current_config'),
+            lf('default_current_config'),
             False,
             True,
             'yaml',
@@ -551,7 +551,7 @@ def test_load_etcd(simple_spec, key):
 @pytest.mark.parametrize('data,filename,file_type', [
     (None, 'unicode.json', 'json'),
     (None, 'unicode.yaml', 'yaml'),
-    (lazy_fixture('example_data'), None, 'json'),
+    (lf('example_data'), None, 'json'),
 ])
 def test_load_from_source(
     example_spec,
@@ -809,10 +809,10 @@ def test_generate_documentation_file(real_world_spec, tmpdir):
 
 
 @pytest.mark.parametrize('spec,fq_name', [
-    (lazy_fixture('real_world_spec'), 'file'),
-    (lazy_fixture('real_world_spec'), 'emoji'),
-    (lazy_fixture('real_world_spec'), 'ssl.private_key'),
-    (lazy_fixture('spec_with_lists'), 'simple_list'),
+    (lf('real_world_spec'), 'file'),
+    (lf('real_world_spec'), 'emoji'),
+    (lf('real_world_spec'), 'ssl.private_key'),
+    (lf('spec_with_lists'), 'simple_list'),
 ])
 def test_find_item(spec, fq_name):
     item = spec.find_item(fq_name)
