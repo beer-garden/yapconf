@@ -204,7 +204,9 @@ def test_dump_box(ascii_data):
                             {
                                 "foo.list1.bar.bat.bat_list_dict.baz": "baz_value",
                                 "foo.list1.bar.bat.bat_list_dict.bazl": [4, 5, 6],
-                                "foo.list1.bar.bat.bat_list_dict.bazd.bazd_key": "bazd_value",
+                                (
+                                    "foo.list1.bar.bat.bat_list_dict.bazd.bazd_key"
+                                ): "bazd_value",
                             }
                         ],
                     }

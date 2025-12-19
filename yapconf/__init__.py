@@ -4,7 +4,6 @@ import json
 import re
 import sys
 
-import packaging.version
 import six
 from box import Box
 
