@@ -10,10 +10,6 @@ jobs:
   Linting:
     runs-on: ${{ matrix.os }}
 
-    defaults:
-      run:
-        working-directory: ./src/app
-
     strategy:
       matrix:
         python-version: ["3.11.11"]
