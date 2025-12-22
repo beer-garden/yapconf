@@ -4,16 +4,10 @@ import json
 import re
 import sys
 
-import six
 from box import Box
 
-if six.PY3:
-    from collections.abc import MutableMapping
+from collections.abc import MutableMapping
 
-    unicode = str
-else:
-    from collections import MutableMapping
-    from io import open
 
 # Setup feature flags for use throughout the package.
 yaml_support = True
@@ -171,10 +165,8 @@ def _dump(data, stream, file_type, **kwargs):
 
     if str(file_type).lower() == "json":
         dumped = json.dumps(data, **kwargs)
-        if isinstance(dumped, unicode):
+        if isinstance(dumped, str):
             stream.write(dumped)
-        else:
-            stream.write(six.u(dumped))
     elif str(file_type).lower() == "yaml":
         # Depending on the yaml module loaded, need to handle arguments differently
         if type(yaml).__name__ == "YAML":

@@ -8,7 +8,6 @@ import time
 import warnings
 from argparse import ArgumentParser
 
-import six
 from watchdog.observers import Observer
 
 import yapconf
@@ -100,8 +99,7 @@ def get_source(label, source_type, **kwargs):
         raise NotImplementedError("No implementation for source type %s" % source_type)
 
 
-@six.add_metaclass(abc.ABCMeta)
-class ConfigSource(object):
+class ConfigSource(metaclass=abc.ABCMeta):
     """Base class for a configuration source.
 
     Config sources will be used to generate overrides during configuration
