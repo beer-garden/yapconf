@@ -40,7 +40,7 @@ jobs:
         python-version: ["3.8","3.9","3.10","3.11.11","3.12","3.13", "3.14"]
         os: ["ubuntu-latest"]
 
-    name: PyTests OS ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: PyTests Python ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v3
 

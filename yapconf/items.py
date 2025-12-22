@@ -5,17 +5,11 @@ import copy
 import logging
 import sys
 
-import six
-
 import yapconf
 from yapconf.actions import AppendBoolean, AppendReplace, MergeAction
-from yapconf.exceptions import (
-    YapconfDictItemError,
-    YapconfItemError,
-    YapconfItemNotFound,
-    YapconfListItemError,
-    YapconfValueError,
-)
+from yapconf.exceptions import (YapconfDictItemError, YapconfItemError,
+                                YapconfItemNotFound, YapconfListItemError,
+                                YapconfValueError)
 
 if sys.version_info > (3,):
     long = int
@@ -50,7 +44,7 @@ def from_specification(
 
     """
     items = {}
-    for item_name, item_info in six.iteritems(specification):
+    for item_name, item_info in specification.items():
         names = copy.copy(parent_names) if parent_names else []
         items[item_name] = _generate_item(
             item_name, item_info, env_prefix, separator, names
@@ -365,7 +359,8 @@ class YapconfItem(object):
 
         if override is None and self.default is None and self.required:
             raise YapconfItemNotFound(
-                "Could not find config value for {0}".format(self.fq_name), self,
+                "Could not find config value for {0}".format(self.fq_name),
+                self,
             )
 
         if override is None:
@@ -459,7 +454,8 @@ class YapconfItem(object):
 
         if self.format_env:
             return yapconf.change_case(
-                self.env_prefix + "_".join(self.fq_name.split(self.separator)), "_",
+                self.env_prefix + "_".join(self.fq_name.split(self.separator)),
+                "_",
             ).upper()
         else:
             return "".join(self.fq_name.split(self.separator))
@@ -700,7 +696,7 @@ class YapconfBoolItem(YapconfItem):
         Returns:
 
         """
-        if isinstance(value, six.string_types):
+        if isinstance(value, str):
             value = value.lower()
 
         if value in self.TRUTHY_VALUES:
@@ -923,7 +919,7 @@ class YapconfDictItem(YapconfItem):
     def get_config_value(self, overrides, skip_environment=False):
         converted_value = {
             child_name: child_item.get_config_value(overrides, skip_environment)
-            for child_name, child_item in six.iteritems(self.children)
+            for child_name, child_item in self.children.items()
         }
         self._validate_value(converted_value)
         return converted_value
@@ -942,7 +938,7 @@ class YapconfDictItem(YapconfItem):
             return None
 
         filtered_items = {}
-        for child_name, child_item in six.iteritems(self.children):
+        for child_name, child_item in self.children.items():
             result = child_item.apply_filter(**kwargs)
             if result is not None:
                 filtered_items[child_name] = result
@@ -971,7 +967,7 @@ class YapconfDictItem(YapconfItem):
     def convert_config_value(self, value, label):
         return {
             child_name: child_item.get_config_value([(label, value)])
-            for child_name, child_item in six.iteritems(self.children)
+            for child_name, child_item in self.children.items()
         }
 
     def _has_cli_support(self, child_of_list=False):

@@ -3,17 +3,12 @@ import logging
 import os
 import sys
 
-import six
+from box import Box
 
 import yapconf
-from box import Box
 from yapconf.docs import generate_markdown_doc
-from yapconf.exceptions import (
-    YapconfItemNotFound,
-    YapconfLoadError,
-    YapconfSourceError,
-    YapconfSpecError,
-)
+from yapconf.exceptions import (YapconfItemNotFound, YapconfLoadError,
+                                YapconfSourceError, YapconfSpecError)
 from yapconf.handlers import ConfigChangeHandler
 from yapconf.items import YapconfDictItem, YapconfListItem, from_specification
 from yapconf.sources import get_source
@@ -77,9 +72,11 @@ class YapconfSpec(object):
         self._sources = {}
 
     def _load_specification(self, specification):
-        if isinstance(specification, six.string_types):
+        if isinstance(specification, str):
             specification = yapconf.load_file(
-                specification, file_type=self._file_type, klazz=YapconfSpecError,
+                specification,
+                file_type=self._file_type,
+                klazz=YapconfSpecError,
             )
 
         if not isinstance(specification, dict):
@@ -93,7 +90,7 @@ class YapconfSpec(object):
         return specification
 
     def _validate_specification(self, specification):
-        for item_name, item_info in six.iteritems(specification):
+        for item_name, item_info in specification.items():
             if not isinstance(item_info, dict):
                 raise YapconfSpecError(
                     "Invalid specification. {0} is not a "
@@ -246,7 +243,7 @@ class YapconfSpec(object):
                 constitute an update to the default.
 
         """
-        for key, value in six.iteritems(new_defaults):
+        for key, value in new_defaults.items():
             item = self.get_item(key)
             if item is None:
                 raise YapconfItemNotFound(
@@ -307,7 +304,7 @@ class YapconfSpec(object):
         """
         overrides = self._generate_overrides(*args)
         filtered_items = {}
-        for item_name, item in six.iteritems(self._yapconf_items):
+        for item_name, item in self._yapconf_items.items():
             result = item.apply_filter(**kwargs)
             if result is not None:
                 filtered_items[item_name] = result
@@ -534,7 +531,10 @@ class YapconfSpec(object):
         # We manually generate defaults here so that it is easy to find out
         # if there are defaults for fallbacks that should be applied.
         overrides.append(
-            ("__defaults__", yapconf.flatten(self.defaults, separator=self._separator),)
+            (
+                "__defaults__",
+                yapconf.flatten(self.defaults, separator=self._separator),
+            )
         )
         return overrides
 
@@ -583,7 +583,7 @@ class YapconfSpec(object):
     def _extract_source(self, index, override):
         label, unpacked_value, file_type = self._explode_override(override)
 
-        if isinstance(unpacked_value, six.string_types):
+        if isinstance(unpacked_value, str):
             return self._extract_string_source(label, unpacked_value, file_type)
 
         elif isinstance(unpacked_value, dict):

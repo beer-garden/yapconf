@@ -8,7 +8,6 @@ import time
 import warnings
 from argparse import ArgumentParser
 
-import six
 from watchdog.observers import Observer
 
 import yapconf
@@ -100,8 +99,7 @@ def get_source(label, source_type, **kwargs):
         raise NotImplementedError("No implementation for source type %s" % source_type)
 
 
-@six.add_metaclass(abc.ABCMeta)
-class ConfigSource(object):
+class ConfigSource(metaclass=abc.ABCMeta):
     """Base class for a configuration source.
 
     Config sources will be used to generate overrides during configuration
@@ -248,8 +246,10 @@ class JsonConfigSource(ConfigSource):
         self._load_kwargs = kwargs
 
         if "encoding" in self._load_kwargs and not yapconf.json_encode_support:
-            warnings.warn("encoding passed to json source config but 3.9 "
-                          "dropped support for encoding. This will be ignored.")
+            warnings.warn(
+                "encoding passed to json source config but 3.9 "
+                "dropped support for encoding. This will be ignored."
+            )
             del self._load_kwargs["encoding"]
 
         if "encoding" not in self._load_kwargs and yapconf.json_encode_support:
@@ -386,7 +386,11 @@ class EtcdConfigSource(ConfigSource):
             raise YapconfSourceError(
                 "Invalid source (%s). Client must be supplied and must be of "
                 "type %s. Got type: %s"
-                % (self.label, type(yapconf.etcd_client.Client), type(self.client),)
+                % (
+                    self.label,
+                    type(yapconf.etcd_client.Client),
+                    type(self.client),
+                )
             )
 
     def get_data(self):
@@ -489,9 +493,14 @@ class KubernetesConfigSource(ConfigSource):
 
         nested_config = result.data[self.key]
         if self.config_type == "json":
-            return json.loads(nested_config,)
+            return json.loads(
+                nested_config,
+            )
         elif self.config_type == "yaml":
-            return yapconf.yaml.load(nested_config)
+            if type(yapconf.yaml).__name__ == "YAML":
+                return yapconf.yaml.load(nested_config)
+            else:
+                return yapconf.yaml.safe_load(nested_config)
         else:
             raise NotImplementedError(
                 "Cannot load config with type %s" % self.config_type

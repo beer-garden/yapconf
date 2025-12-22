@@ -189,7 +189,10 @@ def _generate_source_description(source, app_name, source_label):
 
 
 def _generate_source_section(source_label, source, app_name):
-    source_type_link = "[%s](%s)" % (source.type, SOURCE_TYPE_LINKS[source.type],)
+    source_type_link = "[%s](%s)" % (
+        source.type,
+        SOURCE_TYPE_LINKS[source.type],
+    )
 
     source_type_description = _generate_source_description(
         source, app_name, source_label
@@ -212,13 +215,31 @@ def _generate_item_table(item):
         cli_names = None
 
     rows = [
-        {"attribute": "**item_type**", "value": "`%s`" % item.item_type,},
-        {"attribute": "**default**", "value": "`%s`" % item.default,},
-        {"attribute": "**env_name**", "value": "`%s`" % item.env_name,},
-        {"attribute": "**required**", "value": "`%s`" % item.required,},
-        {"attribute": "**cli_name**", "value": "`%s`" % cli_names,},
+        {
+            "attribute": "**item_type**",
+            "value": "`%s`" % item.item_type,
+        },
+        {
+            "attribute": "**default**",
+            "value": "`%s`" % item.default,
+        },
+        {
+            "attribute": "**env_name**",
+            "value": "`%s`" % item.env_name,
+        },
+        {
+            "attribute": "**required**",
+            "value": "`%s`" % item.required,
+        },
+        {
+            "attribute": "**cli_name**",
+            "value": "`%s`" % cli_names,
+        },
         {"attribute": "**fallback**", "value": "`%s`" % item.fallback},
-        {"attribute": "**choices**", "value": "`%s`" % item.choices,},
+        {
+            "attribute": "**choices**",
+            "value": "`%s`" % item.choices,
+        },
     ]
     return build_markdown_table(headers, rows, ["attribute", "value"])
 
@@ -238,7 +259,9 @@ def _generate_item_options(item, app_name):
         options.append(
             "You can set `{name}` from the command-line by specifying "
             "`{cli_names}` at {app_name}'s entrypoint.".format(
-                name=item.fq_name, cli_names=cli_names, app_name=app_name,
+                name=item.fq_name,
+                cli_names=cli_names,
+                app_name=app_name,
             )
         )
 
@@ -350,7 +373,9 @@ def generate_markdown_doc(app_name, spec):
 
     sections.append(
         build_markdown_table(
-            headers, table_rows, ["name", "type", "default", "description"],
+            headers,
+            table_rows,
+            ["name", "type", "default", "description"],
         )
     )
     for item_section in item_sections:

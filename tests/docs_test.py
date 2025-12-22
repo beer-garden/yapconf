@@ -5,28 +5,30 @@ from yapconf.docs import build_markdown_table
 
 # flake8: noqa
 def test_build_markdown_table():
-    headers = {'foo': 'Foo', 'bar': 'Bar'}
+    headers = {"foo": "Foo", "bar": "Bar"}
     rows = [
         {
-            'bar': 'bar_value',
-            'foo': 'x',
+            "bar": "bar_value",
+            "foo": "x",
         },
         {
-            'bar': 'bar_value2',
-            'foo': 'y',
+            "bar": "bar_value2",
+            "foo": "y",
         },
     ]
-    table = build_markdown_table(headers, rows, ['foo', 'bar'])
-    assert table == ("| Foo | Bar        |\n"
-                     "| --- | ---------- |\n"
-                     "| x   | bar_value  |\n"
-                     "| y   | bar_value2 |\n")
+    table = build_markdown_table(headers, rows, ["foo", "bar"])
+    assert table == (
+        "| Foo | Bar        |\n"
+        "| --- | ---------- |\n"
+        "| x   | bar_value  |\n"
+        "| y   | bar_value2 |\n"
+    )
 
 
 def test_generate_markdown_doc_simple(simple_spec):
-    doc = simple_spec.generate_documentation('My App Name')
+    doc = simple_spec.generate_documentation("My App Name")
     assert doc == (
-"""# My App Name Configuration
+        """# My App Name Configuration
 
 This document describes the configuration for My App Name. Each section will 
 document a particular configuration value and its description. First, 
