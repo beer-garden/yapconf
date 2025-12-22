@@ -464,5 +464,5 @@ For each item in a specification, you can set any of these keys:
 
 .. _python-box: https://github.com/cdgriffith/Box
 .. _argparse: https://docs.python.org/3/library/argparse.html
-.. _yapconf watcher issue: https://github.com/loganasherjones/yapconf/issues/36
-.. _example configuration documentation: https://github.com/loganasherjones/yapconf/blob/master/example/doc.md
+.. _yapconf watcher issue: https://github.com/beer-garden/yapconf/issues/36
+.. _example configuration documentation: https://github.com/beer-garden/yapconf/blob/master/example/doc.md

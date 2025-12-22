@@ -261,7 +261,7 @@ class YapconfSpec(object):
         Documentation is generated in Markdown format. An example
         of the generated documentation can be found at:
 
-        https://github.com/loganasherjones/yapconf/blob/master/example/doc.md
+        https://github.com/beer-garden/yapconf/blob/master/example/doc.md
 
         Args:
             app_name (str): The name of your application.
