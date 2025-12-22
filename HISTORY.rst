@@ -2,7 +2,7 @@
 History
 =======
 
-0.5.0 ()
+0.5.0 (2024-12-22)
 ------------------
 * Removed Python 2 support, min version tested is Python 3.8
 * Removed Six dependency

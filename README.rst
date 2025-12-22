@@ -6,18 +6,18 @@ Yapconf
 .. image:: https://img.shields.io/pypi/v/yapconf.svg
         :target: https://pypi.python.org/pypi/yapconf
 
-.. image:: https://img.shields.io/travis/loganasherjones/yapconf.svg
-        :target: https://travis-ci.org/loganasherjones/yapconf
+.. image:: https://img.shields.io/travis/beer-garden/yapconf.svg
+        :target: https://travis-ci.org/beer-garden/yapconf
 
-.. image:: https://codecov.io/gh/loganasherjones/yapconf/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/loganasherjones/yapconf
+.. image:: https://codecov.io/gh/beer-garden/yapconf/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/beer-garden/yapconf
 
 .. image:: https://readthedocs.org/projects/yapconf/badge/?version=latest
         :target: https://yapconf.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/loganasherjones/yapconf/shield.svg
-     :target: https://pyup.io/repos/github/loganasherjones/yapconf/
+.. image:: https://pyup.io/repos/github/beer-garden/yapconf/shield.svg
+     :target: https://pyup.io/repos/github/beer-garden/yapconf/
      :alt: Updates
 
 

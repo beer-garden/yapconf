@@ -42,12 +42,12 @@ extras = {
 
 setup(
     name="yapconf",
-    version="1.0.0",
+    version="0.5.0",
     description="Yet Another Python Configuration",
     long_description=readme + "\n\n" + history,
-    author="Logan Asher Jones",
-    author_email="loganasherjones@gmail.com",
-    url="https://github.com/loganasherjones/yapconf",
+    author="The Beer Garden Team + Logan Asher Jones",
+    author_email="beer@beer-garden.io",
+    url="https://github.com/beer-garden/yapconf",
     packages=find_packages(include=["yapconf"]),
     include_package_data=True,
     install_requires=requirements,

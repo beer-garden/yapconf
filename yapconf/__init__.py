@@ -53,9 +53,9 @@ except ImportError:
 from yapconf.exceptions import YapconfError  # noqa: E402
 from yapconf.spec import YapconfSpec  # noqa: E402
 
-__author__ = """Logan Asher Jones"""
-__email__ = "loganasherjones@gmail.com"
-__version__ = "0.4.0"
+__author__ = """The Beer Garden Team + Logan Asher Jones"""
+__email__ = "beer@beer-garden.io"
+__version__ = "0.5.0"
 
 
 FILE_TYPES = {
