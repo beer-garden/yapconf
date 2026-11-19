@@ -126,6 +126,7 @@ been capitalized and converted to snake-case.
 .. code-block:: python
 
     import argparse
+    import sys
     from yapconf import YapconfSpec
 
     # First define a specification
